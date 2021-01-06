@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Основы Vue</title>
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+
+  <div class="container" id="app">
+    <div class="card">
+      <h1>План по изучению Vue.js</h1>
+
+      <div class="steps">
+        <div class="steps-content">
+          {{steps[activeIndex].text}}
+        </div>
+        <ul class="steps-list">
+          <li
+            v-for="(step, number) in steps" :key="step.id"
+            :class="{
+              'steps-item': true,
+              active: number === activeIndex ? true : false,
+              done: number < activeIndex ? true : false,
+            }"
+            @click="setActive(number)"
+          >
+            <span>{{number + 1}}</span> {{step.title}}
+          </li>
+        </ul>
+        <div v-if="!restart">
+          <button
+            class="btn"
+            @click="prev"
+            :disabled="disBtnPrev"
+          >
+            Назад
+          </button>
+          <button
+            class="btn primary"
+            @click="nextOfFinish"
+          >
+            {{textNextBtn}}
+          </button>
+        </div>
+        <div v-else>  
+          <button
+            class="btn"
+            @click="reset"
+          >
+            Начать заново
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="vue.js"></script>
+  </body>
+</html>
